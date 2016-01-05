@@ -1,0 +1,21 @@
+
+function cleanup {
+    # Clean up
+    rm -rf assets
+}
+trap cleanup EXIT
+
+OWD=$PWD
+    cd assets && tar xzf idba-1.1.2.tgz
+cd $OWD
+
+export PATH=$PATH:assets/idba-1.1.2/bin
+
+OUTDIR="output_dir"
+THREADS=$(cat /proc/cpuinfo | grep processor | wc -l)
+
+# Usage: idba_ud -r read.fa -o output_dir
+ARGS="-o $OUTDIR --num_threads=$THREADS ${read} ${read_level_2} ${read_level_3} ${read_level_4} ${read_level_5} ${long_read} ${mink} ${maxk} ${step} ${inner_mink} ${inner_step} ${prefix} ${min_count} ${min_support} ${similar} ${max_mismatch} ${min_pairs} ${no_bubble} ${no_local} ${no_coverage} ${no_correct} ${pre_correction}"
+
+echo "idba_ud $ARGS" > run.log
+idba_ud $ARGS

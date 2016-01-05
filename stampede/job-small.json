@@ -1,0 +1,17 @@
+{
+	"name": "idba_ud-test-lacto",
+	"appId": "idba_ud-1.1.2",
+	"batchQueue": "development",
+	"executionSystem": "stampede.tacc.utexas.edu",
+	"maxRunTime": "00:30:00",
+	"memoryPerNode": "32GB",
+	"nodeCount": 1,
+	"processorsPerNode": 16,
+	"archive": false,
+	"archiveSystem": "data.iplantcollaborative.org",
+	"inputs": {
+		"read": "agave://data.iplantcollaborative.org/shared/iplantcollaborative/example_data/idba_ud/lacto-genus/220668.reads-10"
+	},
+	"parameters": {},
+	"notifications": []
+}

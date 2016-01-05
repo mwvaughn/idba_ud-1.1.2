@@ -1,0 +1,464 @@
+{
+	"name": "idba_ud",
+	"modules": ["purge", "load TACC", "swap intel gcc"],
+	"version": "1.1.2",
+	"helpURI": "http://i.cs.hku.hk/~alse/hkubrg/projects/idba_ud/",
+	"label": "IDBA-UD",
+	"tags": ["Assembly", "Metagenomics", "Sequencing"],
+	"defaultQueue": "largemem",
+	"defaultNodeCount": 1,
+	"defaultMemoryPerNode": 999,
+	"shortDescription": "IDBA-UD is a iterative De Bruijn Graph De Novo Assembler for Short Reads Sequencing data with Highly Uneven Sequencing Depth.",
+	"defaultProcessorsPerNode": 32,
+	"defaultMaxRunTime": "24:00:00",
+	"executionSystem": "stampede.tacc.utexas.edu",
+	"executionType": "HPC",
+	"parallelism": "PARALLEL",
+	"deploymentPath": "/vaughn/applications/idba-1.1.2/stampede",
+	"deploymentSystem": "data.iplantcollaborative.org",
+	"templatePath": "run.bashx",
+	"testPath": "test.bashx",
+	"outputs": [],
+	"inputs": [{
+		"id": "read",
+		"details": {
+			"label": "Short read FASTA file",
+			"description": "Sequences less than or equal to 128 bp",
+			"argument": "--read ",
+			"showArgument": true
+		},
+		"semantics": {
+			"minCardinality": 1,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": true,
+			"visible": true,
+			"order": 0,
+			"default": ""
+		}
+	}, {
+		"id": "read_level_2",
+		"details": {
+			"label": "Paired-end FASTA: second level scaffolds",
+			"description": "",
+			"argument": "--read_level_2 ",
+			"showArgument": true
+		},
+		"semantics": {
+			"minCardinality": 0,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": false,
+			"visible": true,
+			"order": 1
+		}
+	}, {
+		"id": "read_level_3",
+		"details": {
+			"label": "Paired-end FASTA: third level scaffolds",
+			"description": "",
+			"argument": "--read_level_3 ",
+			"showArgument": true
+		},
+		"semantics": {
+			"minCardinality": 0,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": false,
+			"visible": true,
+			"order": 2
+		}
+	}, {
+		"id": "read_level_4",
+		"details": {
+			"label": "Paired-end FASTA: fourth level scaffolds",
+			"description": "",
+			"argument": "--read_level_4 ",
+			"showArgument": true
+		},
+		"semantics": {
+			"minCardinality": 0,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": false,
+			"visible": true,
+			"order": 3
+		}
+	}, {
+		"id": "read_level_5",
+		"details": {
+			"label": "Paired-end FASTA: fifth level scaffolds",
+			"description": "",
+			"argument": "--read_level_5 ",
+			"showArgument": true
+		},
+		"semantics": {
+			"minCardinality": 0,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": false,
+			"visible": true,
+			"order": 4
+		}
+	}, {
+		"id": "long_read",
+		"details": {
+			"label": "Long reads FASTA file",
+			"description": "For sequences > 128 bp",
+			"argument": "--long_read ",
+			"showArgument": false
+		},
+		"semantics": {
+			"minCardinality": 0,
+			"maxCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/application/X-fasta"],
+			"fileTypes": ["fasta-0", "raw-0"]
+		},
+		"value": {
+			"required": false,
+			"visible": true,
+			"order": 5
+		}
+	}],
+	"parameters": [{
+		"id": "mink",
+		"value": {
+			"defaultValue": 20,
+			"order": 100,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum k value",
+			"description": "Max value: 124",
+			"argument": "--mink ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "maxk",
+		"value": {
+			"defaultValue": 100,
+			"order": 101,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Maximum k value",
+			"description": "Max value: 124",
+			"argument": "--maxk ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "step",
+		"value": {
+			"defaultValue": 20,
+			"order": 102,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Increment of k-mer for each iteration",
+			"description": "",
+			"argument": "--step ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "inner_mink",
+		"value": {
+			"defaultValue": 10,
+			"order": 103,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum inner k value",
+			"description": "",
+			"argument": "--inner_mink ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "inner_step",
+		"value": {
+			"defaultValue": 5,
+			"order": 104,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Inner increment for k-mer iterations",
+			"description": "",
+			"argument": "--inner_mink ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "prefix",
+		"value": {
+			"defaultValue": 3,
+			"order": 105,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Prefix length used to build sub k-mer table",
+			"description": "",
+			"argument": "--prefix ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "min_count",
+		"value": {
+			"defaultValue": 2,
+			"order": 106,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum count for filtering k-mers during graph building",
+			"description": "",
+			"argument": "--min_count ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "min_support",
+		"value": {
+			"defaultValue": 1,
+			"order": 107,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum support during each iteration",
+			"description": "",
+			"argument": "--min_support ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "seed_kmer",
+		"value": {
+			"defaultValue": 30,
+			"order": 108,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Seed k-mer size for alignment",
+			"description": "",
+			"argument": "--seed_kmer ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "min_contig",
+		"value": {
+			"defaultValue": 200,
+			"order": 109,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum contig length (bp)",
+			"description": "",
+			"argument": "--min_contig ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "similar",
+		"value": {
+			"defaultValue": 0.95,
+			"order": 110,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Similarity for alignment",
+			"description": "",
+			"argument": "--similar ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:float"]
+		}
+	}, {
+		"id": "max_mismatch",
+		"value": {
+			"defaultValue": 3,
+			"order": 111,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Max mismatch for error correction",
+			"description": "",
+			"argument": "--max_mismatch ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "min_pairs",
+		"value": {
+			"defaultValue": 3,
+			"order": 112,
+			"required": false,
+			"visible": true,
+			"type": "number"
+		},
+		"details": {
+			"label": "Minimum number of read pairs",
+			"description": "",
+			"argument": "--min_pairs ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:int"]
+		}
+	}, {
+		"id": "no_bubble",
+		"value": {
+			"defaultValue": false,
+			"order": 200,
+			"validator": "",
+			"required": false,
+			"visible": true,
+			"type": "flag"
+		},
+		"details": {
+			"label": "Don't merge bubbles",
+			"argument": "--no_bubble ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:boolean"]
+		}
+	}, {
+		"id": "no_local",
+		"value": {
+			"defaultValue": false,
+			"order": 200,
+			"validator": "",
+			"required": false,
+			"visible": true,
+			"type": "flag"
+		},
+		"details": {
+			"label": "Don't use a local assembly",
+			"argument": "--no_local ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:boolean"]
+		}
+	}, {
+		"id": "no_coverage",
+		"value": {
+			"defaultValue": false,
+			"order": 200,
+			"validator": "",
+			"required": false,
+			"visible": true,
+			"type": "flag"
+		},
+		"details": {
+			"label": "Don't iterate on coverage",
+			"argument": "--no_coverage ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:boolean"]
+		}
+	}, {
+		"id": "no_correct",
+		"value": {
+			"defaultValue": false,
+			"order": 300,
+			"validator": "",
+			"required": false,
+			"visible": true,
+			"type": "flag"
+		},
+		"details": {
+			"label": "Don't do any correction",
+			"argument": "--no_correct ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:boolean"]
+		}
+	}, {
+		"id": "pre_correction",
+		"value": {
+			"defaultValue": false,
+			"order": 301,
+			"validator": "",
+			"required": false,
+			"visible": true,
+			"type": "flag"
+		},
+		"details": {
+			"label": "Pre-correct before doing assembly",
+			"argument": "--pre_correction ",
+			"showArgument": true
+		},
+		"semantics": {
+			"ontology": ["xs:boolean"]
+		}
+	}],
+	"checkpointable": false
+}
