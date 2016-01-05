@@ -1,6 +1,6 @@
 {
 	"name": "idba_ud-normal-lacto",
-	"appId": "idba_ud-1.1.2u1",
+	"appId": "idba_ud-1.1.2",
 	"batchQueue": "normal",
 	"executionSystem": "stampede.tacc.utexas.edu",
 	"maxRunTime": "02:00:00",
