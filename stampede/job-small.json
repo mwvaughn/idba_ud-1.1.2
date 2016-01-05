@@ -1,6 +1,6 @@
 {
-	"name": "idba_ud-test-lacto",
-	"appId": "idba_ud-1.1.2",
+	"name": "idba_ud-small-lacto",
+	"appId": "idba_ud-1.1.2u1",
 	"batchQueue": "development",
 	"executionSystem": "stampede.tacc.utexas.edu",
 	"maxRunTime": "00:30:00",
